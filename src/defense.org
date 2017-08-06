@@ -17,6 +17,8 @@
 
 #+BIBLIOGRAPHY: ./sources.bib
 
+\(\newcommand{\bs}{\boldsymbol}\)
+
 * Thank you!
   - Dr. Eric Laber
   - Collaborators
@@ -214,14 +216,14 @@
      locations
    - \(\mathcal{T} = \lbrace 1, 2, \ldots \rbrace\): Set of decision
      points
-   - \(S^t = \lbrace S^t_\ell \rbrace_{\ell \in \mathcal{L}}\):
+   - \(\bs{S}^t = \lbrace \bs{S}^t_\ell \rbrace_{\ell \in \mathcal{L}}\):
      Covariate information at time \(t\)
-   - \(A^t = \lbrace A^t_\ell \rbrace_{\ell \in \mathcal{L}} \in
+   - \(\bs{A}^t = \lbrace A^t_\ell \rbrace_{\ell \in \mathcal{L}} \in
      \lbrace 0, 1 \rbrace^L\): treatment allocation indicators at time
      \(t\)
-   - \(Y^t = \lbrace Y^t_\ell \rbrace_{\ell \in \mathcal{L}} \in
+   - \(\bs{Y}^t = \lbrace Y^t_\ell \rbrace_{\ell \in \mathcal{L}} \in
      \mathbb{R}^L\): Outcomes at time \(t\) (higher is better)
-   - \(u(\cdot)\): Utility function that maps \(\text{dom} \; Y\) to
+   - \(u(\cdot)\): Utility function that maps \(\text{dom} \; \bs{Y}\) to
      \(\mathbb{R}\)
 
 
@@ -229,7 +231,7 @@
    - \(\Pi\): Set of considered allocation strategies
    - \(\mathcal{B}_L\): Set of all \(\lbrace 0, 1\rbrace^L\) valued
      random vectors
-   - \(\pi\in\Pi\): Mapping from \(\text{dom} \; S \rightarrow
+   - \(\pi\in\Pi\): Mapping from \(\text{dom} \; \bs{S} \rightarrow
      \mathcal{B}_L\)
 
 
@@ -241,23 +243,23 @@
    - Let \(\cdot^*\) denote potential outcomes
    - Optimal strategy \(\pi^{opt} \in \Pi\) satisfies the following
      \[\mathbb{E}^{\pi^{opt}}\left[\sum_{t \ge 1} \gamma^{t-1}
-     u(Y^{*t})\right] \ge \mathbb{E}^{\pi}\left[\sum_{t \ge 1}
-     \gamma^{t-1} u(Y^{*t})\right]\] for all \(\pi \in \Pi\) where
+     u(\bs{Y}^{*t})\right] \ge \mathbb{E}^{\pi}\left[\sum_{t \ge 1}
+     \gamma^{t-1} u(\bs{Y}^{*t})\right]\] for all \(\pi \in \Pi\) where
      \(\gamma \in [0,1)\) is the discount factor
 
 
 ** Model Based Policy Search
    - Want to estimate the optimal allocation strategy \[\pi^{opt} =
      \underset{\pi \in \Pi}{\arg\max} \; \mathbb{E}^{\pi}\left[\sum_{t
-     \ge 1} \gamma^t u(Y^{*t})\right]\]
-   - Postulate model for the distribution of \(S^{t+1} | H^t, A^t\)
-     and \(Y^{t+1} | H^t, A^t\)
+     \ge 1} \gamma^t u(\bs{Y}^{*t})\right]\]
+   - Postulate model for the distribution of \(\bs{S}^{t+1} | \bs{H}^t, \bs{A}^t\)
+     and \(\bs{Y}^{t+1} | \bs{H}^t, \bs{A}^t\)
    - For estimability, assume the model is Markov, homogeneous in
      time, and indexed by a low dimensional parameter
-     - \(f_t(S^{t+1} | H^t, A^t) \rightarrow f(S^{t+1} | S^t, Y^t,
-       A^t; \eta)\)
-     - \(g_t(Y^{t+1} | H^t, A^t) \rightarrow g(Y^{t+1} | S^t, Y^t,
-       A^t; \beta)\)
+     - \(f_t(\bs{S}^{t+1} | \bs{H}^t, \bs{A}^t) \rightarrow
+       f(\bs{S}^{t+1} | \bs{S}^t, \bs{Y}^t, \bs{A}^t; \eta)\)
+     - \(g_t(\bs{Y}^{t+1} | \bs{H}^t, \bs{A}^t) \rightarrow
+       g(\bs{Y}^{t+1} | \bs{S}^t, \bs{Y}^t, \bs{A}^t; \beta)\)
    - Thompson sampling
      - Draw \(\widetilde{\beta}\) and \(\widetilde{\eta}\) from estimated
        asymptotic distribution of MLE
@@ -265,20 +267,44 @@
        \(\widetilde{\beta}\) and \(\widetilde{\eta}\)
 
 
+** Model Based Policy Search
+   - Pros:
+     - Easy to include scientific knowledge
+     - Low variance
+     - Feasible with few observations
+   - Cons:
+     - Potentially high bias
+     - Not robust to misspecification
+     - Computationally expensive in general
+
+
 ** Semi-Parametric Estimation
-   - Make decisions by maximizing the Q-function \[Q^{\pi^{opt}}(s, y,
-     a) = \mathbb{E}^{\pi^{opt}}\left[\sum_{v \ge 0} \gamma^{v}
-     u(Y^{*(t+v)}) \bigg | S^t = s, Y^t = y, A^t = a\right]\]
-   - Estimating equation
-     \[\mathbb{E}\left[\left\lbrace u(Y^{*t}) + \gamma \underset{a}{\max}
-     Q^{\pi^{opt}}(S^{t+1}, Y^{t+1}, a) - Q^{\pi^{opt}}(S^t, Y^t, A^t)
-     \right\rbrace v(S^t, Y^t, A^t)\right] = 0\]
+   - Make decisions by maximizing the Q-function
+     \[Q^{\pi^{opt}}(\bs{s}, \bs{y}, \bs{a}) =
+     \mathbb{E}^{\pi^{opt}}\left[\sum_{v \ge 0} \gamma^{v}
+     u(\bs{Y}^{*(t+v)}) \bigg | \bs{S}^t = \bs{s}, \bs{Y}^t = \bs{y},
+     \bs{A}^t = \bs{a}\right]\]
+   - Estimating equation \[\mathbb{E}\left[\left\lbrace
+     u(\bs{Y}^{*t}) + \gamma \underset{\bs{a}}{\max}
+     Q^{\pi^{opt}}(\bs{S}^{t+1}, \bs{Y}^{t+1}, \bs{a}) -
+     Q^{\pi^{opt}}(\bs{S}^t, \bs{Y}^t, \bs{A}^t) \right\rbrace
+     \bs{v}(\bs{S}^t, \bs{Y}^t, \bs{A}^t)\right] = 0\]
    - Assume parametric form of \(Q^{\pi^{opt}}(\cdots) \triangleq
-     Q^{\pi^{opt}}(\cdots; \theta)\) and replace \(v(S^t, Y^t, A^t)\)
-     with \(\nabla_\theta Q^{\pi^{opt}}(\cdots; \theta)\)
+     Q^{\pi^{opt}}(\cdots; \theta)\) and replace \(\bs{v}(\bs{S}^t,
+     \bs{Y}^t, \bs{A}^t)\) with \(\nabla_\theta Q^{\pi^{opt}}(\cdots;
+     \theta)\)
    - Thompson sampling
      - Replacing expectation with average over data
      - Weight observation \(i\) by \(X_i \overset{iid}{\sim} Exp(1)\)
+
+
+** Semi-Parametric Estimation
+   - Pros:
+     - Low bias
+     - Does not require specifying a dynamics model
+   - Cons:
+     - Difficult to incorporate scientific knowledge
+     - High variance with few observations
 
 
 ** Simulation Experiment
@@ -481,35 +507,35 @@
 ** Estimating Optimal Pursuer Strategy
 
   - Q-function is a sufficient quantity for making optimal decisions
-    \[Q^{*, \psi}(\boldsymbol{w}, \boldsymbol{J}, \boldsymbol{a}) = \mathbb{E}^{*,
-    \psi}\left[\sum_{v\ge 0} \gamma^v R^{t + v} \bigg| \boldsymbol{W}^t =
-    \boldsymbol{w}, \boldsymbol{J}^t = \boldsymbol{J},
-    \boldsymbol{A}^t = \boldsymbol{a}\right]\]
+    \[Q^{*, \psi}(\bs{w}, \bs{J}, \bs{a}) = \mathbb{E}^{*,
+    \psi}\left[\sum_{v\ge 0} \gamma^v R^{t + v} \bigg| \bs{W}^t =
+    \bs{w}, \bs{J}^t = \bs{J},
+    \bs{A}^t = \bs{a}\right]\]
 
-  - Under the Markov assumption \[Q^{*, \psi}(\boldsymbol{w},
-    \boldsymbol{J}, \boldsymbol{a}) = \mathbb{E}^{*, \psi}\left[R^t +
-    \gamma \max_{\boldsymbol{a}'} Q^{*, \psi}(\boldsymbol{W}^{t+1},
-    \boldsymbol{J}^{t+1}, \boldsymbol{a}') \bigg| \boldsymbol{W}^t =
-    \boldsymbol{w}, \boldsymbol{J}^t = \boldsymbol{J},
-    \boldsymbol{A}^t = \boldsymbol{a}\right]\]
+  - Under the Markov assumption \[Q^{*, \psi}(\bs{w},
+    \bs{J}, \bs{a}) = \mathbb{E}^{*, \psi}\left[R^t +
+    \gamma \max_{\bs{a}'} Q^{*, \psi}(\bs{W}^{t+1},
+    \bs{J}^{t+1}, \bs{a}') \bigg| \bs{W}^t =
+    \bs{w}, \bs{J}^t = \bs{J},
+    \bs{A}^t = \bs{a}\right]\]
 
   - Can write using a \(n\)-step roll out
-    \[Q^{*, \psi}(\boldsymbol{w}, \boldsymbol{J}, \boldsymbol{a}) =
+    \[Q^{*, \psi}(\bs{w}, \bs{J}, \bs{a}) =
     \mathbb{E}^{*, \psi}\left[\sum_{v = 0}^{n-1} \gamma^v R^{t+v} +
-    \gamma^n \max_{\boldsymbol{a}'} Q^{*,
-    \psi}(\boldsymbol{W}^{t+n}, \boldsymbol{J}^{t+n}, \boldsymbol{a}')
-    \bigg| \boldsymbol{W}^t = \boldsymbol{w}, \boldsymbol{J}^t =
-    \boldsymbol{J}, \boldsymbol{A}^t = \boldsymbol{a}\right]\]
+    \gamma^n \max_{\bs{a}'} Q^{*,
+    \psi}(\bs{W}^{t+n}, \bs{J}^{t+n}, \bs{a}')
+    \bigg| \bs{W}^t = \bs{w}, \bs{J}^t =
+    \bs{J}, \bs{A}^t = \bs{a}\right]\]
 
 
 ** Heuristic Strategy
   - Approximate Q-function using a heuristic strategy \[Q^{*,
-    \psi}(\boldsymbol{w}, \boldsymbol{J}, \boldsymbol{a}) \approx
+    \psi}(\bs{w}, \bs{J}, \bs{a}) \approx
     \mathbb{E}^{*, \psi}\left[\sum_{v = 0}^{n-1} \gamma^v R^{t+v} +
-    \gamma^{n} \max_{\boldsymbol{a}'} Q^{\pi_H,
-    \psi}(\boldsymbol{W}^{t+n}, \boldsymbol{J}^{t+n}, \boldsymbol{a}')
-    \bigg| \boldsymbol{W}^t = \boldsymbol{w}, \boldsymbol{J}^t =
-    \boldsymbol{J}, \boldsymbol{A}^t = \boldsymbol{a}\right]\]
+    \gamma^{n} \max_{\bs{a}'} Q^{\pi_H,
+    \psi}(\bs{W}^{t+n}, \bs{J}^{t+n}, \bs{a}')
+    \bigg| \bs{W}^t = \bs{w}, \bs{J}^t =
+    \bs{J}, \bs{A}^t = \bs{a}\right]\]
 
   - Heuristic strategy \(\pi_H\) is a variant of the /global-max/
     strategy
