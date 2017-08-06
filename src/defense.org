@@ -9,27 +9,38 @@
 
 #+REVEAL_EXTRA_CSS: customize_theme.css
 
-#+REVEAL_EXTRA_JS: ./custom.js
+# #+REVEAL_EXTRA_JS: {src: './bodymovin.js'}, {src: './anim_svg.js'}
 
-#+OPTIONS: toc:nil num:nil timestamp:nil reveal_single_file:t
+#+OPTIONS: toc:nil num:nil timestamp:nil
 
 #+REVEAL_TRANS: none
 
 #+BIBLIOGRAPHY: ./sources.bib
 
-
 * Thank you!
+  - Dr. Eric Laber
+  - Collaborators
+  - Committee members
+  - Department and staff
+  - Family and friends
+
 
 * Outline
-  Need an outline...
+  - Review of White-Nose Syndrome
+    - Model based policy search
+  - Ebola Virus in West Africa
+    - Semi-parametric strategy for robustness
+  - Pursuit and evasion
+  - Short tangents
 
 
-* Model Based Epidemic Intervention Strategies
+* Model Based Epidemic Control Strategies
   :PROPERTIES:
   :HTML_CONTAINER_CLASS: centered-title
   :END:
 
-** White Nose Syndrome
+
+** White Nose Syndrome (WNS)
   #+REVEAL_HTML: <div class="columns">
 
   #+REVEAL_HTML: <div class="column">
@@ -51,17 +62,328 @@
   #+REVEAL_HTML: </div>
 
 
+** WNS: Observed Data
+   [[./figures/observed_infection_col.svg]]
 
-* Semi-Parametric Epidemic Intervention Strategies
+
+** Managing Spread of WNS
+   - Allocating treatments for WNS requires decisions over time and
+     space
+     - Other applications: social networks, computer networks, urban
+       development, etc.
+   - High dimensional problem
+     - Treat 120 of possible 1128 locations \(\rightarrow 3.98 \times
+       10^{164}\)
+   - Used Thompson sampling and model based policy search to estimate
+     optimal strategy
+     - Treatments are allocated using a linear priority score
+
+
+** Simulation Experiment
+    - Simulating the spread of WNS on toy network structures
+    - Initially infect 1% of locations
+    - Simulation runs for 15 time points
+    - Generative model is tuned for 70% infected under no treatment
+    - Treatment allocation starts at time point 8
+    - A maximum of 12% of locations are treated
+    - Outcome is the proportion of locations infected
+
+
+# ** Simulation: Grid Structure
+#    #+REVEAL_HTML: <div class="columns">
+
+#    #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+#    #+ATTR_HTML: :width 65%
+#    [[./figures/grid_10x10.svg]]
+#    #+REVEAL_HTML: </div>
+
+#    #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+#    #+ATTR_HTML: :width 65%
+#    [[./figures/grid_20x25.svg]]
+#    #+REVEAL_HTML: </div>
+
+#    #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+#    #+ATTR_HTML: :width 65%
+#    [[./figures/grid_40x25.svg]]
+#    #+REVEAL_HTML: </div>
+
+#    #+REVEAL_HTML: </div>
+
+#    #+ATTR_HTML: :style font-size:0.6em
+#    | Size | No Trt       | Proximal     | Myopic       | Trt All      | Policy Search |
+#    |------+--------------+--------------+--------------+--------------+---------------|
+#    |  100 | 0.71 (0.018) | 0.38 (0.026) | 0.37 (0.024) | 0.18 (0.010) | 0.28 (0.016)  |
+#    |  500 | 0.69 (0.011) | 0.41 (0.014) | 0.37 (0.015) | 0.18 (0.006) | 0.27 (0.011)  |
+#    | 1000 | 0.70 (0.007) | 0.45 (0.010) | 0.45 (0.011) | 0.22 (0.005) | 0.29 (0.008)  |
+
+
+
+# ** Simulation: Random Structure
+#    #+REVEAL_HTML: <div class="columns">
+
+#    #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+#    #+ATTR_HTML: :width 65%
+#    [[./figures/random_100.svg]]
+#    #+REVEAL_HTML: </div>
+
+#    #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+#    #+ATTR_HTML: :width 65%
+#    [[./figures/random_500.svg]]
+#    #+REVEAL_HTML: </div>
+
+#    #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+#    #+ATTR_HTML: :width 65%
+#    [[./figures/random_1000.svg]]
+#    #+REVEAL_HTML: </div>
+
+#    #+REVEAL_HTML: </div>
+
+#    #+ATTR_HTML: :style font-size:0.6em
+#    | Size | No Trt       | Proximal     | Myopic       | Trt All      | Policy Search |
+#    |------+--------------+--------------+--------------+--------------+---------------|
+#    |  100 | 0.72 (0.021) | 0.30 (0.021) | 0.38 (0.027) | 0.21 (0.012) | 0.29 (0.017)  |
+#    |  500 | 0.68 (0.009) | 0.24 (0.007) | 0.32 (0.009) | 0.22 (0.004) | 0.22 (0.005)  |
+#    | 1000 | 0.69 (0.008) | 0.24 (0.007) | 0.32 (0.009) | 0.20 (0.003) | 0.21 (0.004)  |
+
+
+
+** Simulation Results
+   #+REVEAL_HTML: <div class="columns">
+
+   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+   #+CAPTION: Lattice
+   #+ATTR_HTML: :width 65%
+   [[./figures/grid_10x10.svg]]
+   #+REVEAL_HTML: </div>
+
+   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+   #+CAPTION: Random
+   #+ATTR_HTML: :width 65%
+   [[./figures/random_100.svg]]
+   #+REVEAL_HTML: </div>
+
+   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+   #+CAPTION: Scale-free
+   #+ATTR_HTML: :width 65%
+   [[./figures/barabasi_100.svg]]
+   #+REVEAL_HTML: </div>
+
+   #+REVEAL_HTML: </div>
+
+   #+CAPTION: Results for Scale-free
+   #+ATTR_HTML: :style font-size:0.6em
+   | Size | No Trt       | Proximal     | Myopic       | Trt All      | Policy Search |
+   |------+--------------+--------------+--------------+--------------+---------------|
+   |  100 | 0.65 (0.026) | 0.40 (0.031) | 0.44 (0.030) | 0.21 (0.014) | 0.26 (0.017)  |
+   |  500 | 0.70 (0.010) | 0.46 (0.020) | 0.56 (0.014) | 0.24 (0.008) | 0.27 (0.010)  |
+   | 1000 | 0.69 (0.006) | 0.48 (0.016) | 0.56 (0.011) | 0.26 (0.007) | 0.29 (0.008)  |
+
+
+** Simulation: White Nose Syndrome
+   #+ATTR_HTML: :width 65%
+   [[./figures/observed_infection_col.svg]]
+
+   #+ATTR_HTML: :style font-size:0.6em
+   | No Trt       | Proximal     | Myopic       | Trt All      | Policy Search |
+   |--------------+--------------+--------------+--------------+---------------|
+   | 0.63 (0.004) | 0.57 (0.004) | 0.56 (0.004) | 0.18 (0.001) | 0.30 (0.005)  |
+
+
+* Semi-Parametric Epidemic Control Strategies
   :PROPERTIES:
   :HTML_CONTAINER_CLASS: centered-title
   :END:
 
 
-* Pursuit Evasion
+** Ebola Virus
+   - Deadly virus affecting humans and non-human primates
+   - West Africa has the largest outbreak in history
+     - Started in April 2014
+     - Two out of five cases resulted in death
+   - Management of Ebola is similar to WNS
+     - Allocating treatments to regions
+
+
+** Ebola Virus: Observed Data
+  #+ATTR_HTML: :width 75%
+  [[./figures/ebola_obs_outbreaks.svg]]
+
+
+** Setup and Notation
+   - \(\mathcal{L} = \lbrace 1, \ldots, L \rbrace\): Set of spatial
+     locations
+   - \(\mathcal{T} = \lbrace 1, 2, \ldots \rbrace\): Set of decision
+     points
+   - \(S^t = \lbrace S^t_\ell \rbrace_{\ell \in \mathcal{L}}\):
+     Covariate information at time \(t\)
+   - \(A^t = \lbrace A^t_\ell \rbrace_{\ell \in \mathcal{L}} \in
+     \lbrace 0, 1 \rbrace^L\): treatment allocation indicators at time
+     \(t\)
+   - \(Y^t = \lbrace Y^t_\ell \rbrace_{\ell \in \mathcal{L}} \in
+     \mathbb{R}^L\): Outcomes at time \(t\) (higher is better)
+   - \(u(\cdot)\): Utility function that maps \(\text{dom} \; Y\) to
+     \(\mathbb{R}\)
+
+
+** Treatment Allocation Strategies
+   - \(\Pi\): Set of considered allocation strategies
+   - \(\mathcal{B}_L\): Set of all \(\lbrace 0, 1\rbrace^L\) valued
+     random vectors
+   - \(\pi\in\Pi\): Mapping from \(\text{dom} \; S \rightarrow
+     \mathcal{B}_L\)
+
+
+** Optimal Allocation Strategies
+   - Make all the standard causal assumptions
+     - Sequential ignorability
+     - Consistency
+     - Positivity
+   - Let \(\cdot^*\) denote potential outcomes
+   - Optimal strategy \(\pi^{opt} \in \Pi\) satisfies the following
+     \[\mathbb{E}^{\pi^{opt}}\left[\sum_{t \ge 1} \gamma^{t-1}
+     u(Y^{*t})\right] \ge \mathbb{E}^{\pi}\left[\sum_{t \ge 1}
+     \gamma^{t-1} u(Y^{*t})\right]\] for all \(\pi \in \Pi\) where
+     \(\gamma \in [0,1)\) is the discount factor
+
+
+** Model Based Policy Search
+   - Want to estimate the optimal allocation strategy \[\pi^{opt} =
+     \underset{\pi \in \Pi}{\arg\max} \; \mathbb{E}^{\pi}\left[\sum_{t
+     \ge 1} \gamma^t u(Y^{*t})\right]\]
+   - Postulate model for the distribution of \(S^{t+1} | H^t, A^t\)
+     and \(Y^{t+1} | H^t, A^t\)
+   - For estimability, assume the model is Markov, homogeneous in
+     time, and indexed by a low dimensional parameter
+     - \(f_t(S^{t+1} | H^t, A^t) \rightarrow f(S^{t+1} | S^t, Y^t,
+       A^t; \eta)\)
+     - \(g_t(Y^{t+1} | H^t, A^t) \rightarrow g(Y^{t+1} | S^t, Y^t,
+       A^t; \beta)\)
+   - Thompson sampling
+     - Draw \(\widetilde{\beta}\) and \(\widetilde{\eta}\) from estimated
+       asymptotic distribution of MLE
+     - Estimate \(\pi^{opt}\) by simulation optimization using
+       \(\widetilde{\beta}\) and \(\widetilde{\eta}\)
+
+
+** Semi-Parametric Estimation
+   - Make decisions by maximizing the Q-function \[Q^{\pi^{opt}}(s, y,
+     a) = \mathbb{E}^{\pi^{opt}}\left[\sum_{v \ge 0} \gamma^{v}
+     u(Y^{*(t+v)}) \bigg | S^t = s, Y^t = y, A^t = a\right]\]
+   - Estimating equation
+     \[\mathbb{E}\left[\left\lbrace u(Y^{*t}) + \gamma \underset{a}{\max}
+     Q^{\pi^{opt}}(S^{t+1}, Y^{t+1}, a) - Q^{\pi^{opt}}(S^t, Y^t, A^t)
+     \right\rbrace v(S^t, Y^t, A^t)\right] = 0\]
+   - Assume parametric form of \(Q^{\pi^{opt}}(\cdots) \triangleq
+     Q^{\pi^{opt}}(\cdots; \theta)\) and replace \(v(S^t, Y^t, A^t)\)
+     with \(\nabla_\theta Q^{\pi^{opt}}(\cdots; \theta)\)
+   - Thompson sampling
+     - Replacing expectation with average over data
+     - Weight observation \(i\) by \(X_i \overset{iid}{\sim} Exp(1)\)
+
+
+** Simulation Experiment
+   - Simulate spread of Ebola on toy network structures
+   - Initially infect 10% of locations
+   - Simulation runs for 25 time points
+     - Treatment starts immediately
+   - Generative model is tuned for 60% infection
+   - A maximum of 5% of locations are treated
+   - Outcome is the final proportion of locations infected
+
+
+** Simulation Results: Lattice
+   #+REVEAL_HTML: <div class="columns">
+
+   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+   #+ATTR_HTML: :width 65%
+   [[./figures/grid_10x10.svg]]
+   #+REVEAL_HTML: </div>
+
+   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+   #+ATTR_HTML: :width 65%
+   [[./figures/grid_20x25.svg]]
+   #+REVEAL_HTML: </div>
+
+   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+   #+ATTR_HTML: :width 65%
+   [[./figures/grid_40x25.svg]]
+   #+REVEAL_HTML: </div>
+
+   #+REVEAL_HTML: </div>
+
+   [[./figures/toy_sim_results_grid.svg]]
+
+
+** Simulation Results: Random
+   #+REVEAL_HTML: <div class="columns">
+
+   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+   #+ATTR_HTML: :width 65%
+   [[./figures/random_100.svg]]
+   #+REVEAL_HTML: </div>
+
+   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+   #+ATTR_HTML: :width 65%
+   [[./figures/random_500.svg]]
+   #+REVEAL_HTML: </div>
+
+   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+   #+ATTR_HTML: :width 65%
+   [[./figures/random_1000.svg]]
+   #+REVEAL_HTML: </div>
+
+   #+REVEAL_HTML: </div>
+
+   [[./figures/toy_sim_results_random.svg]]
+
+
+
+** Simulation Results: Scale-free
+   #+REVEAL_HTML: <div class="columns">
+
+   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+   #+ATTR_HTML: :width 65%
+   [[./figures/barabasi_100.svg]]
+   #+REVEAL_HTML: </div>
+
+   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+   #+ATTR_HTML: :width 65%
+   [[./figures/barabasi_500.svg]]
+   #+REVEAL_HTML: </div>
+
+   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
+   #+ATTR_HTML: :width 65%
+   [[./figures/barabasi_1000.svg]]
+   #+REVEAL_HTML: </div>
+
+   #+REVEAL_HTML: </div>
+
+   [[./figures/toy_sim_results_barabasi.svg]]
+
+
+** Simulation Results: Ebola
+   #+ATTR_HTML: :width 65%
+   [[./figures/ebola_obs_outbreaks.svg]]
+
+   #+ATTR_HTML: :style font-size:0.6em
+   | None            | Random          | Proximal        | Myopic          | Model based     |
+   |-----------------+-----------------+-----------------+-----------------+-----------------|
+   | 0.69 (0.0038)   | 0.64 (0.0040)   | 0.61 (0.0040)   | 0.58 (0.0041)   | 0.52 (0.0042)   |
+
+
+
+** Future Work
+   - Immediate detection of outbreaks
+   - Known network structure
+   - Adaptive switch-over between model-based and semi-parametric
+   - Extension to larger problems (e.g., 1 million locations)
+
+
+* Pursuit and Evasion
   :PROPERTIES:
   :HTML_CONTAINER_CLASS: centered-title
   :END:
+
 
 ** Motivating problems
   - National security
@@ -72,6 +394,7 @@
   - Wildlife management
     - Tracking poachers of endangered animals
 
+
 ** Pursuit and Evasion
   - Formalize the search as evolving over a network of locations
   - All players move in discrete time
@@ -79,8 +402,10 @@
     1. Evader tries to reach goal and pursuers try to stop the evader
     2. Pursuers try to catch evader and game continues until capture
 
+
 ** Pursuit and Evasion Demo
   [[./figures/animation.gif]]
+
 
 ** Game Setup
   - \(d\) pursuers
@@ -94,6 +419,7 @@
     - The evader has been caught if adjacent to at least one pursuer
     - Finite time horizon
 
+
 ** Pursuers
   - *Goal*: Minimize expected time to capture
   - State information available to all pursuers at each time point
@@ -106,13 +432,16 @@
     - E.g., can only move to adjacent locations
   - An action is a set of new locations for each agent
 
+
 ** Evader
   - *Goal*: Reach goal without being caught by pursuers
   - Only one evader
   - Movements restricted to feasible set (e.g., adjacent locations)
 
+
 ** Timeline
   [[./figures/timeline.png]]
+
 
 ** Player Strategies
   - Pursuers
@@ -129,6 +458,7 @@
     - \(\psi^t\): Maps current location to the set of feasible next
       locations
 
+
 ** Optimal Pursuer Strategies
   - Value of the pursuer strategy \(\pi\) assuming evader follows
     \(\psi\) \[V(\pi; \psi) \triangleq \mathbb{E}^{\pi, \psi}\left(
@@ -143,8 +473,10 @@
     and \(J^t_\psi(\cdot | H^t)\) such that \(V(\widetilde{\pi}, \psi)
     \ge V(\pi; \psi)\)
 
+
 ** Thompson Sampling
   [[./figures/thompson_sampling.png]]
+
 
 ** Estimating Optimal Pursuer Strategy
 
@@ -169,6 +501,7 @@
     \bigg| \boldsymbol{W}^t = \boldsymbol{w}, \boldsymbol{J}^t =
     \boldsymbol{J}, \boldsymbol{A}^t = \boldsymbol{a}\right]\]
 
+
 ** Heuristic Strategy
   - Approximate Q-function using a heuristic strategy \[Q^{*,
     \psi}(\boldsymbol{w}, \boldsymbol{J}, \boldsymbol{a}) \approx
@@ -182,6 +515,7 @@
     strategy
     - Find locations of the posterior with highest coverage
     - Select actions that move the pursuers closest to these locations
+
 
 ** Simulation Experiment Setup
   #+REVEAL_HTML: <div class="columns">
@@ -200,9 +534,11 @@
 
   #+REVEAL_HTML: </div>
 
+
 ** Simulation Experiment Results
   #+attr_html: :width 55%
   [[./figures/prob_capture.png]]
+
 
 ** Future Work
   - Estimate prior over evader behaviors using Nash process prior
@@ -211,20 +547,16 @@
   - Incorporate additional actions besides movement
 
 
-* Fun Tangents
-  :PROPERTIES:
-  :HTML_CONTAINER_CLASS: centered-title
-  :END:
-
-
-** Laser Foxes
-
-
-** Snack Attack
-
-
-* Acknowledgments
-  A lot of people...
-
 * References
   bibliography:./sources.bib
+
+
+* Final Slide
+  :PROPERTIES:
+  :HTML_CONTAINER_CLASS: final-slide
+  :END:
+  #+REVEAL_HTML: <div style="text-align: center; padding: 15%">
+  Thank you for listening!
+
+  Questions?
+  #+REVEAL_HTML: </div>

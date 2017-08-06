@@ -37,6 +37,18 @@
     visibility: hidden;
 }
 
+.reveal #container {
+    width: 600px;
+    height:600px;
+    overflow: hidden;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+}
+
 .reveal h1,
 .reveal h2,
 .reveal h3,
@@ -47,6 +59,14 @@
 }
 
 .reveal .org-ref-bib-h1 {
+    display: none;
+}
+
+.reveal .figure-number {
+    display: none;
+}
+
+.reveal .table-number {
     display: none;
 }
 
