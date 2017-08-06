@@ -42,6 +42,10 @@
     margin: 0 auto;
 }
 
+.reveal .math-jax-custom-commands {
+    display:none;
+}
+
 .reveal .final-slide h2 {
     visibility: hidden;
 }

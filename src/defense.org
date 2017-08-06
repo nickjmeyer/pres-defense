@@ -17,7 +17,9 @@
 
 #+BIBLIOGRAPHY: ./sources.bib
 
+#+REVEAL_HTML: <div class="math-jax-custom-commands">
 \(\newcommand{\bs}{\boldsymbol}\)
+#+REVEAL_HTML: </div>
 
 * Thank you!
   - Dr. Eric Laber
@@ -28,10 +30,10 @@
 
 
 * Outline
-  - Review of White-Nose Syndrome
-    - Model based policy search
-  - Ebola Virus in West Africa
-    - Semi-parametric strategy for robustness
+  - Model based epidemic control strategies
+    - Review of White-Nose Syndrome
+  - Semi-parametric epidemic control strategies
+    - Ebola Virus in West Africa
   - Pursuit and evasion
 
 
@@ -217,6 +219,8 @@
      \(t\)
    - \(\bs{Y}^t = \lbrace Y^t_\ell \rbrace_{\ell \in \mathcal{L}} \in
      \mathbb{R}^L\): Outcomes at time \(t\) (higher is better)
+   - \(\bs{H}^t = \lbrace \bs{S}^i, \bs{Y}^i, \bs{A}^i
+     \rbrace_{i=1}^t\): History through time \(t\)
    - \(u(\cdot)\): Utility function that maps \(\text{dom} \; \bs{Y}\) to
      \(\mathbb{R}\)
 
@@ -227,6 +231,7 @@
      random vectors
    - \(\pi\in\Pi\): Mapping from \(\text{dom} \; \bs{S} \rightarrow
      \mathcal{B}_L\)
+   - *Goal*: Find the strategy that maximizes long run utility
 
 
 ** Optimal Allocation Strategies
@@ -282,13 +287,13 @@
      u(\bs{Y}^{*t}) + \gamma \underset{\bs{a}}{\max}
      Q^{\pi^{opt}}(\bs{S}^{t+1}, \bs{Y}^{t+1}, \bs{a}) -
      Q^{\pi^{opt}}(\bs{S}^t, \bs{Y}^t, \bs{A}^t) \right\rbrace
-     \bs{v}(\bs{S}^t, \bs{Y}^t, \bs{A}^t)\right] = 0\]
+     \bs{v}(\bs{S}^t, \bs{Y}^t, \bs{A}^t)\right] = \bs{0}\]
    - Assume parametric form of \(Q^{\pi^{opt}}(\cdots) \triangleq
      Q^{\pi^{opt}}(\cdots; \theta)\) and replace \(\bs{v}(\bs{S}^t,
      \bs{Y}^t, \bs{A}^t)\) with \(\nabla_\theta Q^{\pi^{opt}}(\cdots;
      \theta)\)
    - Thompson sampling
-     - Replacing expectation with average over data
+     - Replace expectation with average over data
      - Weight observation \(i\) by \(X_i \overset{iid}{\sim} Exp(1)\)
 
 
@@ -306,11 +311,11 @@
    - Initially infect 10% of locations
    - Simulation runs for 25 time points
      - Treatment starts immediately
-   - Generative model is tuned for 60% infection
-   - A maximum of 5% of locations are treated
-   - Outcome is the final proportion of locations infected
    - Generative model is a mixture governed by \(\delta \in [0, 1]\)
      - Increasingly misspecified as \(\delta \rightarrow 1\)
+     - Tuned for 60% infection
+   - A maximum of 5% of locations are treated
+   - Outcome is the final proportion of locations infected
 
 
 ** Simulation Results: Lattice
@@ -526,12 +531,10 @@
 
 ** Heuristic Strategy
   - Approximate Q-function using a heuristic strategy \[Q^{*,
-    \psi}(\bs{w}, \bs{J}, \bs{a}) \approx
-    \mathbb{E}^{*, \psi}\left[\sum_{v = 0}^{n-1} \gamma^v R^{t+v} +
-    \gamma^{n} \max_{\bs{a}'} Q^{\pi_H,
-    \psi}(\bs{W}^{t+n}, \bs{J}^{t+n}, \bs{a}')
-    \bigg| \bs{W}^t = \bs{w}, \bs{J}^t =
-    \bs{J}, \bs{A}^t = \bs{a}\right]\]
+    \psi}(\bs{w}, \bs{J}, \bs{a}) \approx \mathbb{E}^{*,
+    \psi}\left[\sum_{v = 0}^{n-1} \gamma^v R^{t+v} + \gamma^{n}
+    \max_{\bs{a}'} Q^{\pi_H, \psi}(\bs{W}^{t+n}, \bs{J}^{t+n},
+    \bs{a}') \bigg| \cdots\right]\]
 
   - Heuristic strategy \(\pi_H\) is a variant of the /global-max/
     strategy
