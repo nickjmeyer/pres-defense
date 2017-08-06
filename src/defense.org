@@ -33,7 +33,6 @@
   - Ebola Virus in West Africa
     - Semi-parametric strategy for robustness
   - Pursuit and evasion
-  - Short tangents
 
 
 * Model Based Epidemic Control Strategies
@@ -46,14 +45,9 @@
   #+REVEAL_HTML: <div class="columns">
 
   #+REVEAL_HTML: <div class="column">
-  - Schoharie County, New York, 2006 cite:Blehert2009
+  - Schoharie County, New York, 2006
   - Infectious fungus that is rapidly killing bats
   - Poses environmental, human health, and financial concerns
-    cite:Boyles2011
-  - Current treatments:
-    - Heaters in caves
-    - Artificial caves
-    - Chemical treatments
 
   #+REVEAL_HTML: </div>
 
@@ -315,75 +309,80 @@
    - Generative model is tuned for 60% infection
    - A maximum of 5% of locations are treated
    - Outcome is the final proportion of locations infected
+   - Generative model is a mixture governed by \(\delta \in [0, 1]\)
+     - Increasingly misspecified as \(\delta \rightarrow 1\)
 
 
 ** Simulation Results: Lattice
-   #+REVEAL_HTML: <div class="columns">
+   #+REVEAL_HTML: <div class="columns" style="margin:0 2em 0 3em">
 
-   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
-   #+ATTR_HTML: :width 65%
+   #+REVEAL_HTML: <div class="column">
+   #+ATTR_HTML: :width 90%
    [[./figures/grid_10x10.svg]]
    #+REVEAL_HTML: </div>
 
-   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
-   #+ATTR_HTML: :width 65%
+   #+REVEAL_HTML: <div class="column">
+   #+ATTR_HTML: :width 90%
    [[./figures/grid_20x25.svg]]
    #+REVEAL_HTML: </div>
 
-   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
-   #+ATTR_HTML: :width 65%
+   #+REVEAL_HTML: <div class="column">
+   #+ATTR_HTML: :width 90%
    [[./figures/grid_40x25.svg]]
    #+REVEAL_HTML: </div>
 
    #+REVEAL_HTML: </div>
 
+   #+ATTR_HTML: :width 85%
    [[./figures/toy_sim_results_grid.svg]]
 
 
 ** Simulation Results: Random
-   #+REVEAL_HTML: <div class="columns">
+   #+REVEAL_HTML: <div class="columns" style="margin:0 2em 0 3em">
 
-   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
-   #+ATTR_HTML: :width 65%
+   #+REVEAL_HTML: <div class="column">
+   #+ATTR_HTML: :width 90%
    [[./figures/random_100.svg]]
    #+REVEAL_HTML: </div>
 
-   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
-   #+ATTR_HTML: :width 65%
+   #+REVEAL_HTML: <div class="column">
+   #+ATTR_HTML: :width 90%
    [[./figures/random_500.svg]]
    #+REVEAL_HTML: </div>
 
-   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
-   #+ATTR_HTML: :width 65%
+   #+REVEAL_HTML: <div class="column">
+   #+ATTR_HTML: :width 90%
    [[./figures/random_1000.svg]]
    #+REVEAL_HTML: </div>
 
    #+REVEAL_HTML: </div>
 
+   #+ATTR_HTML: :width 85%
    [[./figures/toy_sim_results_random.svg]]
 
 
 
 ** Simulation Results: Scale-free
-   #+REVEAL_HTML: <div class="columns">
+   #+REVEAL_HTML: <div class="columns" style="margin:0 2em 0 3em">
 
-   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
-   #+ATTR_HTML: :width 65%
+   #+REVEAL_HTML: <div class="column">
+   #+ATTR_HTML: :width 90%
    [[./figures/barabasi_100.svg]]
    #+REVEAL_HTML: </div>
 
-   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
-   #+ATTR_HTML: :width 65%
+   #+REVEAL_HTML: <div class="column">
+   #+ATTR_HTML: :width 90%
    [[./figures/barabasi_500.svg]]
    #+REVEAL_HTML: </div>
 
-   #+REVEAL_HTML: <div class="column" style="padding: 0 0">
-   #+ATTR_HTML: :width 65%
+   #+REVEAL_HTML: <div class="column">
+   #+ATTR_HTML: :width 90%
    [[./figures/barabasi_1000.svg]]
    #+REVEAL_HTML: </div>
 
    #+REVEAL_HTML: </div>
 
+   #+ATTR_HTML: :width 85%
    [[./figures/toy_sim_results_barabasi.svg]]
 
 
@@ -515,17 +514,14 @@
   - Under the Markov assumption \[Q^{*, \psi}(\bs{w},
     \bs{J}, \bs{a}) = \mathbb{E}^{*, \psi}\left[R^t +
     \gamma \max_{\bs{a}'} Q^{*, \psi}(\bs{W}^{t+1},
-    \bs{J}^{t+1}, \bs{a}') \bigg| \bs{W}^t =
-    \bs{w}, \bs{J}^t = \bs{J},
-    \bs{A}^t = \bs{a}\right]\]
+    \bs{J}^{t+1}, \bs{a}') \bigg| \cdots \right]\]
 
   - Can write using a \(n\)-step roll out
     \[Q^{*, \psi}(\bs{w}, \bs{J}, \bs{a}) =
     \mathbb{E}^{*, \psi}\left[\sum_{v = 0}^{n-1} \gamma^v R^{t+v} +
     \gamma^n \max_{\bs{a}'} Q^{*,
     \psi}(\bs{W}^{t+n}, \bs{J}^{t+n}, \bs{a}')
-    \bigg| \bs{W}^t = \bs{w}, \bs{J}^t =
-    \bs{J}, \bs{A}^t = \bs{a}\right]\]
+    \bigg| \cdots \right]\]
 
 
 ** Heuristic Strategy
@@ -575,7 +571,15 @@
 
 * References
   bibliography:./sources.bib
-
+  cite:Boyles2011
+  cite:Blehert2009
+  cite:Maher2012
+  cite:ertefaie2014
+  cite:thompson1933likelihood
+  cite:Kramer2016
+  cite:Li2017
+  cite:Gosavi2014
+  cite:minnier2011perturbation
 
 * Final Slide
   :PROPERTIES:
