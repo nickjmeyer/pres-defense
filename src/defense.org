@@ -9,7 +9,7 @@
 
 #+REVEAL_EXTRA_CSS: customize_theme.css
 
-# #+REVEAL_EXTRA_JS: {src: './bodymovin.js'}, {src: './anim_svg.js'}
+#+REVEAL_EXTRA_JS: {src: './bodymovin.js'}, {src: './anim_svg.js'}
 
 #+OPTIONS: toc:nil num:nil timestamp:nil
 
@@ -434,7 +434,34 @@
 
 
 ** Pursuit and Evasion Demo
-  [[./figures/animation.gif]]
+   :PROPERTIES:
+   :reveal_data_state: pe_intro
+   :END:
+   #+REVEAL_HTML: <div id="pe_intro"></div>
+
+** Pursuit and Evasion Demo
+   :PROPERTIES:
+   :reveal_data_state: pe_evadergoals
+   :END:
+   #+REVEAL_HTML: <div id="pe_evadergoals"></div>
+
+** Pursuit and Evasion Demo
+   :PROPERTIES:
+   :reveal_data_state: pe_onestep
+   :END:
+   #+REVEAL_HTML: <div id="pe_onestep"></div>
+
+** Pursuit and Evasion Demo
+   :PROPERTIES:
+   :reveal_data_state: pe_informant
+   :END:
+   #+REVEAL_HTML: <div id="pe_informant"></div>
+
+** Pursuit and Evasion Demo
+   :PROPERTIES:
+   :reveal_data_state: pe_capture
+   :END:
+   #+REVEAL_HTML: <div id="pe_capture"></div>
 
 
 ** Game Setup
@@ -550,7 +577,7 @@
   - Number of steps before heuristic: 0, 1, 2
   - Evader is following a random walk indexed by goal and drift
   - Game ends when evader reaches the goal state or has been caught
-  - 50 replications
+  - 500 replications
   #+REVEAL_HTML: </div>
 
   #+REVEAL_HTML: <div class="column">
@@ -562,7 +589,7 @@
 
 ** Simulation Experiment Results
   #+attr_html: :width 55%
-  [[./figures/prob_capture.png]]
+  [[./figures/prob_capture.svg]]
 
 
 ** Future Work
