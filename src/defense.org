@@ -215,12 +215,11 @@
    - \(\bs{S}^t = \lbrace \bs{S}^t_\ell \rbrace_{\ell \in \mathcal{L}}\):
      Covariate information at time \(t\)
    - \(\bs{A}^t = \lbrace A^t_\ell \rbrace_{\ell \in \mathcal{L}} \in
-     \lbrace 0, 1 \rbrace^L\): treatment allocation indicators at time
-     \(t\)
+     \lbrace 0, 1 \rbrace^L\): Treatment allocation at time \(t\)
    - \(\bs{Y}^t = \lbrace Y^t_\ell \rbrace_{\ell \in \mathcal{L}} \in
      \mathbb{R}^L\): Outcomes at time \(t\) (higher is better)
-   - \(\bs{H}^t = \lbrace \bs{S}^i, \bs{Y}^i, \bs{A}^i
-     \rbrace_{i=1}^t\): History through time \(t\)
+   - \(\bs{H}^t = \lbrace \bs{S}^1, \bs{Y}^1, \bs{A}^1, \ldots,
+     \bs{S}^t, \bs{Y}^t\rbrace_{i=1}^t\): History through time \(t\)
    - \(u(\cdot)\): Utility function that maps \(\text{dom} \; \bs{Y}\) to
      \(\mathbb{R}\)
 
@@ -229,30 +228,30 @@
    - \(\Pi\): Set of considered allocation strategies
    - \(\mathcal{B}_L\): Set of all \(\lbrace 0, 1\rbrace^L\) valued
      random vectors
-   - \(\pi\in\Pi\): Mapping from \(\text{dom} \; \bs{S} \rightarrow
-     \mathcal{B}_L\)
-   - *Goal*: Find the strategy that maximizes long run utility
+   - \(\pi\in\Pi\): Mapping from \(\text{dom} \; \bs{S} \times
+     \text{dom} \; \bs{Y} \rightarrow \mathcal{B}_L\)
+   - *Goal*: Maximize expected long run utility
+     - Value function
 
 
 ** Optimal Allocation Strategies
-   - Make all the standard causal assumptions
+   - Make standard causal assumptions
      - Sequential ignorability
      - Consistency
      - Positivity
-   - Let \(\cdot^*\) denote potential outcomes
    - Optimal strategy \(\pi^{opt} \in \Pi\) satisfies the following
      \[\mathbb{E}^{\pi^{opt}}\left[\sum_{t \ge 1} \gamma^{t-1}
-     u(\bs{Y}^{*t})\right] \ge \mathbb{E}^{\pi}\left[\sum_{t \ge 1}
-     \gamma^{t-1} u(\bs{Y}^{*t})\right]\] for all \(\pi \in \Pi\) where
+     u(\bs{Y}^{t})\right] \ge \mathbb{E}^{\pi}\left[\sum_{t \ge 1}
+     \gamma^{t-1} u(\bs{Y}^{t})\right]\] for all \(\pi \in \Pi\) where
      \(\gamma \in [0,1)\) is the discount factor
 
 
 ** Model Based Policy Search
    - Want to estimate the optimal allocation strategy \[\pi^{opt} =
      \underset{\pi \in \Pi}{\arg\max} \; \mathbb{E}^{\pi}\left[\sum_{t
-     \ge 1} \gamma^t u(\bs{Y}^{*t})\right]\]
-   - Postulate model for the distribution of \(\bs{S}^{t+1} | \bs{H}^t, \bs{A}^t\)
-     and \(\bs{Y}^{t+1} | \bs{H}^t, \bs{A}^t\)
+     \ge 1} \gamma^{t-1} u(\bs{Y}^{t})\right]\]
+   - Postulate model for the distribution of \(\bs{S}^{t+1} |
+     \bs{H}^t, \bs{A}^t\) and \(\bs{Y}^{t+1} | \bs{H}^t, \bs{A}^t\)
    - For estimability, assume the model is Markov, homogeneous in
      time, and indexed by a low dimensional parameter
      - \(f_t(\bs{S}^{t+1} | \bs{H}^t, \bs{A}^t) \rightarrow
@@ -281,10 +280,10 @@
    - Make decisions by maximizing the Q-function
      \[Q^{\pi^{opt}}(\bs{s}, \bs{y}, \bs{a}) =
      \mathbb{E}^{\pi^{opt}}\left[\sum_{v \ge 0} \gamma^{v}
-     u(\bs{Y}^{*(t+v)}) \bigg | \bs{S}^t = \bs{s}, \bs{Y}^t = \bs{y},
+     u(\bs{Y}^{t+v}) \bigg | \bs{S}^t = \bs{s}, \bs{Y}^t = \bs{y},
      \bs{A}^t = \bs{a}\right]\]
    - Estimating equation \[\mathbb{E}\left[\left\lbrace
-     u(\bs{Y}^{*t}) + \gamma \underset{\bs{a}}{\max}
+     u(\bs{Y}^{t}) + \gamma \underset{\bs{a}}{\max}
      Q^{\pi^{opt}}(\bs{S}^{t+1}, \bs{Y}^{t+1}, \bs{a}) -
      Q^{\pi^{opt}}(\bs{S}^t, \bs{Y}^t, \bs{A}^t) \right\rbrace
      \bs{v}(\bs{S}^t, \bs{Y}^t, \bs{A}^t)\right] = \bs{0}\]
@@ -294,7 +293,7 @@
      \theta)\)
    - Thompson sampling
      - Replace expectation with average over data
-     - Weight observation \(i\) by \(X_i \overset{iid}{\sim} Exp(1)\)
+     - Weight \(i^{th}\) term by \(X_i \overset{iid}{\sim} Exp(1)\)
 
 
 ** Semi-Parametric Estimation
