@@ -30,11 +30,11 @@
 
 
 * Outline
-  - Model based epidemic control strategies
-    - Review of White-Nose Syndrome
-  - Semi-parametric epidemic control strategies
-    - Ebola Virus in West Africa
-  - Pursuit and evasion
+  1. Model based epidemic control strategies
+     - Review of White-Nose Syndrome
+  2. Semi-parametric epidemic control strategies
+     - Ebola Virus in West Africa
+  3. Pursuit and evasion
 
 
 * Model Based Epidemic Control Strategies
@@ -312,7 +312,6 @@
      - Treatment starts immediately
    - Generative model is a mixture governed by \(\delta \in [0, 1]\)
      - Increasingly misspecified as \(\delta \rightarrow 1\)
-     - Tuned for 60% infection
    - A maximum of 5% of locations are treated
    - Outcome is the final proportion of locations infected
 
@@ -414,24 +413,6 @@
   :END:
 
 
-** Motivating problems
-  - National security
-    - Domestic invasion
-    - Search and destroy missions
-  - Emergency response
-    - Law enforcement responding to a fleeing suspect
-  - Wildlife management
-    - Tracking poachers of endangered animals
-
-
-** Pursuit and Evasion
-  - Formalize the search as evolving over a network of locations
-  - All players move in discrete time
-  - Possible objectives
-    1. Evader tries to reach goal and pursuers try to stop the evader
-    2. Pursuers try to catch evader and game continues until capture
-
-
 ** Pursuit and Evasion Demo
    :PROPERTIES:
    :reveal_data_state: pe_intro
@@ -463,6 +444,24 @@
    #+REVEAL_HTML: <div id="pe_capture"></div>
 
 
+** Motivating problems
+  - National security
+    - Domestic invasion
+    - Search and destroy missions
+  - Emergency response
+    - Law enforcement responding to a fleeing suspect
+  - Wildlife management
+    - Tracking poachers of endangered animals
+
+
+** Pursuit and Evasion
+  - Formalize the search as evolving over a network of locations
+  - All players move in discrete time
+  - Possible objectives
+    1. Evader tries to reach goal and pursuers try to stop the evader
+    2. Pursuers try to catch evader and game continues until capture
+
+
 ** Game Setup
   - \(d\) pursuers
   - 1 evader
@@ -473,7 +472,6 @@
     3. Evader responds by moving to a new location
   - Game terminates when the evader has reached the goal or has been caught
     - The evader has been caught if adjacent to at least one pursuer
-    - Finite time horizon
 
 
 ** Pursuers
