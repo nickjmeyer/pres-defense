@@ -151,19 +151,19 @@
    #+REVEAL_HTML: <div class="column" style="padding: 0 0">
    #+CAPTION: Lattice
    #+ATTR_HTML: :width 65%
-   [[./figures/grid_10x10.svg]]
+   [[./figures/grid-10x10.svg]]
    #+REVEAL_HTML: </div>
 
    #+REVEAL_HTML: <div class="column" style="padding: 0 0">
    #+CAPTION: Random
    #+ATTR_HTML: :width 65%
-   [[./figures/random_100.svg]]
+   [[./figures/random-100.svg]]
    #+REVEAL_HTML: </div>
 
    #+REVEAL_HTML: <div class="column" style="padding: 0 0">
    #+CAPTION: Scale-free
    #+ATTR_HTML: :width 65%
-   [[./figures/barabasi_100.svg]]
+   [[./figures/barabasi-100.svg]]
    #+REVEAL_HTML: </div>
 
    #+REVEAL_HTML: </div>
@@ -321,17 +321,17 @@
 
    #+REVEAL_HTML: <div class="column">
    #+ATTR_HTML: :width 90%
-   [[./figures/grid_10x10.svg]]
+   [[./figures/grid-10x10.svg]]
    #+REVEAL_HTML: </div>
 
    #+REVEAL_HTML: <div class="column">
    #+ATTR_HTML: :width 90%
-   [[./figures/grid_20x25.svg]]
+   [[./figures/grid-20x25.svg]]
    #+REVEAL_HTML: </div>
 
    #+REVEAL_HTML: <div class="column">
    #+ATTR_HTML: :width 90%
-   [[./figures/grid_40x25.svg]]
+   [[./figures/grid-40x25.svg]]
    #+REVEAL_HTML: </div>
 
    #+REVEAL_HTML: </div>
@@ -345,17 +345,17 @@
 
    #+REVEAL_HTML: <div class="column">
    #+ATTR_HTML: :width 90%
-   [[./figures/random_100.svg]]
+   [[./figures/random-100.svg]]
    #+REVEAL_HTML: </div>
 
    #+REVEAL_HTML: <div class="column">
    #+ATTR_HTML: :width 90%
-   [[./figures/random_500.svg]]
+   [[./figures/random-500.svg]]
    #+REVEAL_HTML: </div>
 
    #+REVEAL_HTML: <div class="column">
    #+ATTR_HTML: :width 90%
-   [[./figures/random_1000.svg]]
+   [[./figures/random-1000.svg]]
    #+REVEAL_HTML: </div>
 
    #+REVEAL_HTML: </div>
@@ -370,17 +370,17 @@
 
    #+REVEAL_HTML: <div class="column">
    #+ATTR_HTML: :width 90%
-   [[./figures/barabasi_100.svg]]
+   [[./figures/barabasi-100.svg]]
    #+REVEAL_HTML: </div>
 
    #+REVEAL_HTML: <div class="column">
    #+ATTR_HTML: :width 90%
-   [[./figures/barabasi_500.svg]]
+   [[./figures/barabasi-500.svg]]
    #+REVEAL_HTML: </div>
 
    #+REVEAL_HTML: <div class="column">
    #+ATTR_HTML: :width 90%
-   [[./figures/barabasi_1000.svg]]
+   [[./figures/barabasi-1000.svg]]
    #+REVEAL_HTML: </div>
 
    #+REVEAL_HTML: </div>
